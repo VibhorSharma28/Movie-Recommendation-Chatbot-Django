@@ -1,6 +1,6 @@
 # django-chat Version 1.0
 
-![](./images/screenshot.bmp)
+![](./images/SS.jpg)
 
 Django Project with [ChatterBot](https://github.com/gunthercox/ChatterBot) as the chatbot. The frontend using VueJS.
 
