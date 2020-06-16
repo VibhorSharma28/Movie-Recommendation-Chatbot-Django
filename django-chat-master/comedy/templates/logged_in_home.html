@@ -1,0 +1,98 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block js %}
+<head>
+  <script type="text/javascript" src="/static/js/script.js"></script>
+  <style type="text/css">
+    #outer
+    {
+      margin-top:3em;
+      margin-bottom: 4em;
+      margin-left: 13em;
+    }
+    .ip
+    {
+      border-top-style: none;
+      border-left-style: none;
+      border-right-style: none;
+      border-bottom-width: 2px;
+      border-bottom-style: ridge;
+      border-bottom-color: #999999;
+      margin:1em;
+      background:transparent;
+    }
+    .ip:focus
+    {
+      outline:none;
+    }
+    body
+    {
+      background-image:url('{% static "img/back1.jpg"%}');
+      background-repeat:no-repeat;
+      background-size:cover;
+    }
+    #sub
+    {
+      margin-left: 43em;
+    }
+    .navbar
+    {
+      padding-right: 50px;
+      padding-bottom: 15px;
+    }
+    a{
+      /*background: #c9df8a;*/
+      text-decoration: none;
+    }
+    a:link {
+        color: white;
+        text-decoration: none;
+        font-size:20px;
+    }
+    a:visited {
+      color: white;
+    }
+    a:active {
+      color: yellow;
+    } 
+    a:hover
+    { 
+      color:#d3d3d3;
+    }
+    #app
+    {
+      margin-left:60px;
+    }
+  </style>
+</head>
+{% endblock %}
+<body>
+{% block content %}
+<!-- Image and text -->
+  <nav class="navbar navbar-light" style="background-color: black;">
+    <a href="/cust_home" style="font-weight: bold; font-family:Brush Script MT, cursive; font-size: 24px">ZELDA</a>
+    <a href="/catalogue/" style=";margin-left:-800px;">Catalogue</a>
+    <a href="/personal/" style=";margin-left:-800px;">Recommendation</a>
+    <span align="right" style="color:#d3d3d3;font-size:20px;">Welcome {{user.first_name}}&nbsp;&nbsp;<a href="/">Logout</a></span>
+  </nav>
+  <br>
+  <div id="app" class="container top-padding">
+    <div class="row">
+      <div class="col-md-12">
+        <div class="card col-md-6" v-for="message in messages" v-bind:class="{ 'user-message': message.user,  'chat-message': message.chat_bot, 'offset-md-6': message.chat_bot}">
+          <div class="card-body">
+            [[message.text]]
+          </div>
+        </div>
+      </div>
+        
+    </div>
+    <div id="text-box" class="row top-padding">
+      <div class="col-md-12">
+        <textarea class="form-control" style="width:110%;margin-top: 10px;" v-bind:placeholder="placeholder" v-model="input" v-bind:class="{ 'border-danger': send_blank}" v-on:change="check_content"></textarea>
+        <i style="margin-right:-90px;margin-top: 12px;" class="fas fa-arrow-circle-right send-btn" v-on:click="add_message"></i>
+      </div>
+    </div>
+  </div>
+{% endblock %}
+</body>

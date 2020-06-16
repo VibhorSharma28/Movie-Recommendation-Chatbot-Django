@@ -1,0 +1,135 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block js %}
+<head>
+  <script type="text/javascript" src="/static/js/script.js"></script>
+  <style type="text/css">
+    #outer
+    {
+      margin-top:3em;
+      margin-bottom: 4em;
+      margin-left: 13em;
+    }
+    .ip
+    {
+      border-top-style: none;
+      border-left-style: none;
+      border-right-style: none;
+      border-bottom-width: 2px;
+      border-bottom-style: ridge;
+      border-bottom-color: #999999;
+      margin:1em;
+      background:transparent;
+    }
+    .ip:focus
+    {
+      outline:none;
+    }
+    body
+    {
+      background-image:url('{% static "img/back1.jpg"%}');
+      background-repeat:no-repeat;
+      background-size:cover;
+    }
+    #sub
+    {
+      margin-left: 43em;
+    }
+    .navbar
+    {
+      padding-right: 50px;
+      padding-bottom: 15px;
+    }
+    a{
+      /*background: #c9df8a;*/
+      text-decoration: none;
+    }
+    a:link {
+        color: white;
+        text-decoration: none;
+        font-size:20px;
+    }
+    a:visited {
+      color: white;
+    }
+    a:active {
+      color: yellow;
+    } 
+    a:hover
+    { 
+      color:#d3d3d3;
+    }
+    #result
+    {
+      padding:15px;
+      margin-left: 20px;
+    }
+    .obj
+    {
+      float:left;
+      padding-left:50px;
+    }
+    .text1
+    {
+      float:bottom;
+      font-size:20px;
+    }
+    .navbar .navbar-light
+    {
+      position:fixed;
+    }
+  </style>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+</head>
+{% endblock %}
+<body>
+{% block content %}
+<!-- Image and text -->
+  <nav class="navbar navbar-light" style="background-color: black;">
+    <a href="/cust_home" style="font-weight: bold; font-family:Brush Script MT, cursive; font-size: 24px">ZELDA</a>
+    <a href="/catalogue/" style=";margin-left:-820px;">Catalogue</a>
+    <a href="/personal/" style=";margin-left:-820px;">Recommendation</a>
+    <span align="right" style="color:#d3d3d3;font-size:20px;">Welcome {{user.first_name}}&nbsp;&nbsp;<a href="/">Logout</a></span>
+  </nav>
+  
+  <form action = '/personal/' autocomplete='off' method="post" id="user_choice">
+    {% csrf_token %}
+    <br><br>
+    <h4 align="center">Enter a few movies of your choice to get personalized recommendation:</h4><br>
+    <div id="outer">
+      <input type="text" class="ip" name="user_movie1" id = "user_movie1" required>
+      <input type="text" name="user_movie2" class="ip" id = "user_movie2" required>
+      <input type="text" name="user_movie3" class="ip" id = "user_movie3" required>
+      <input type="text" name="user_movie4" class="ip" id = "user_movie4" required>
+      <input type="text" name="user_movie5" class="ip" id = "user_movie5" required>
+    </div>
+    <div id="sub">
+    <input type="submit" value = "Submit" style="padding: 10px 18px 10px 18px;border-style:none;border-radius: 10px;background-color: #bfbfbf;"></div>
+  </form>
+  <div id="result">
+    {% for key,value in rec.items %}
+      <div class="obj">
+        <img src= "https://image.tmdb.org/t/p/w500{{value}}" width="230" height="300" alt="not found">
+        <p class="text1">{{key}}</p>
+      </div>
+    {% endfor %}
+  </div>
+    <!-- <div class="obj">
+      <img src= "https://image.tmdb.org/t/p/w500{{poster.1}}" width="230" height="300" alt="not found">
+      <p class="text1">{{ans.1}}</p>
+    </div>
+    <div class="obj">
+      <img src= "https://image.tmdb.org/t/p/w500{{poster.2}}" width="230" height="300" alt="not found">
+      <p class="text1">{{ans.2}}</p>
+    </div>
+    <div class="obj">
+      <img src= "https://image.tmdb.org/t/p/w500{{poster.3}}" width="230" height="300" alt="not found">
+      <p class="text1">{{ans.3}}</p>
+    </div>
+    <div class="obj">
+      <img src= "https://image.tmdb.org/t/p/w500{{poster.4}}" width="230" height="300" alt="not found">
+      <p class="text1">{{ans.4}}</p>
+    </div> -->
+{% endblock %}
+
+</body>

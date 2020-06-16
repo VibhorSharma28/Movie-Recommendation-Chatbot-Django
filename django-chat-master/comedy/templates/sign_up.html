@@ -1,0 +1,182 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block js %}
+<head>
+  <script type="text/javascript" src="/static/js/script.js"></script>
+  <link rel="stylesheet" type="text/css" href="{% static 'bootstrap.min.css' %}">
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+  <script src="//code.jquery.com/jquery-1.11.1.min.js"></script>
+  <style type="text/css">
+    #outer
+    {
+      margin-top:3em;
+      margin-bottom: 4em;
+      margin-left: 13em;
+    }
+    .ip
+    {
+      border-top-style: none;
+      border-left-style: none;
+      border-right-style: none;
+      border-bottom-width: 2px;
+      border-bottom-style: ridge;
+      border-bottom-color: #999999;
+      margin:1em;
+      background:transparent;
+    }
+    .ip:focus
+    {
+      outline:none;
+    }
+    body
+    {
+      background-image:url('{% static "img/back1.jpg"%}');
+      background-repeat:no-repeat;
+      background-size:cover;
+    }
+    #sub
+    {
+      margin-left: 43em;
+    }
+    .navbar
+    {
+      padding-right: 50px;
+      padding-bottom: 15px;
+    }
+    a{
+      /*background: #c9df8a;*/
+      text-decoration: none;
+    }
+    a:link {
+        color: white;
+        text-decoration: none;
+        font-size:20px;
+    }
+    a:visited {
+      color: white;
+    }
+    a:active {
+      color: yellow;
+    } 
+    a:hover
+    { 
+      color:#d3d3d3;
+    }
+    #app
+    {
+      margin-left:60px;
+    }
+  </style>
+</head>
+{% endblock %}
+<body>
+{% block content %}
+<!-- Image and text -->
+  <nav class="navbar navbar-light" style="background-color: black;">
+    <a href="/" style="font-weight: bold; font-family:Brush Script MT, cursive; font-size: 24px;margin-left: -1230px">ZELDA</a>
+    <a href="/catalogue1/" style="margin-left: -1200px;font-size:22px;">Catalogue</a>
+  </nav>
+  <div class="container" style="margin-top:60px;">    
+        <div id="loginbox" style="margin-top:50px;" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">                    
+            <div class="panel panel-info" >
+                    <div class="panel-heading">
+                        <div class="panel-title">Log In</div>
+                    </div>     
+                    <div style="padding-top:30px" class="panel-body" >
+                        <div style="display:none" id="login-alert" class="alert alert-danger col-sm-12"></div>    
+                        <form action="/login/" method="post" id="loginform" class="form-horizontal" role="form">
+                            {% csrf_token %}        
+                            <div style="margin-bottom: 25px" class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-user"></i></span>
+                                        <input id="login-username" type="text" class="form-control" name="username" placeholder="Username" required>                                        
+                            </div>
+                                
+                            <div style="margin-bottom: 25px" class="input-group">
+                                        <span class="input-group-addon"><i class="glyphicon glyphicon-lock"></i></span>
+                                        <input id="login-password" type="password" class="form-control" name="pass" placeholder="Password" required>
+                            </div>
+                            <div class="input-group">
+                                <div class="checkbox">
+                                    <label>
+                                        <input id="login-remember" type="checkbox" name="remember" value="1"> Remember me
+                                    </label>
+                                </div>
+                            </div>
+                            <div style="margin-top:10px" class="form-group">
+                                <div class="col-sm-12 controls">
+                                    <input type="submit" id="btn-login" class="btn btn-success" style="background-color:#d9edf7;border:none;color:#31708F" value="Log in">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="col-md-12 control">
+                                    <div style="border-top: 1px solid#888; padding-top:15px; font-size:85%" >Don't have an account! 
+                                        <a href="#" style="color:#042A59;font-size:15px;" onClick="$('#loginbox').hide(); $('#signupbox').show()">Sign Up Here</a>
+                                    </div>
+                                </div>
+                            </div>    
+                        </form>     
+                    </div>                     
+                </div>  
+        </div>
+        <div id="signupbox" style="display:none; margin-top:50px" class="mainbox col-md-6 col-md-offset-3 col-sm-8 col-sm-offset-2">
+                    <div class="panel panel-info">
+                        <div class="panel-heading">
+                            <div class="panel-title">Sign Up</div>
+                            <div style="float:right; font-size: 55%; position: relative; top:-23px"><a id="signinlink" style="color:#042A59" href="#" onclick="$('#signupbox').hide(); $('#loginbox').show()">Login</a></div>
+                        </div>  
+                        <div class="panel-body" >
+
+                            <form action="/sign_up/" method="post" id="signupform" class="form-horizontal" role="form">
+                                {% csrf_token %}
+                                    
+                                <div class="form-group">
+                                    <label for="firstname" class="col-md-3 control-label">First Name</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" name="first_name" placeholder="First Name" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="firstname" class="col-md-3 control-label">Last Name</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" name="last_name" placeholder="Last Name" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="email" class="col-md-3 control-label">Email</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" name="email" placeholder="Email Address" required>
+                                    </div>
+                                </div>
+
+                                <div class="form-group">
+                                    <label for="Mobile Number" class="col-md-3 control-label">Username</label>
+                                    <div class="col-md-9">
+                                        <input type="text" class="form-control" name="username" placeholder="Username" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="password" class="col-md-3 control-label">Password</label>
+                                    <div class="col-md-9">
+                                        <input type="password" class="form-control" name="password1" placeholder="Password" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">
+                                    <label for="Confirm Password" class="col-md-3 control-label">Confirm Password</label>
+                                    <div class="col-md-9">
+                                        <input type="password" class="form-control" name="password2" placeholder="Confirm Password" required>
+                                    </div>
+                                </div>
+                                <div class="form-group">                                  
+                                    <div class="col-md-offset-3 col-md-9">
+                                        <input type="submit" id="btn-signup" class="btn btn-info" value="Sign Up">
+                                    </div>
+                                </div>
+                            </form>
+                         </div>
+                    </div>
+         </div> 
+    </div>
+{% endblock %}
+</body>
